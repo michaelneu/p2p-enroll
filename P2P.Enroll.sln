@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.27130.2027
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "P2P.Enroll", "P2P.Enroll\P2P.Enroll.csproj", "{A7F6AACF-BE66-48E1-A845-4AE5E6B09997}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{A7F6AACF-BE66-48E1-A845-4AE5E6B09997}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A7F6AACF-BE66-48E1-A845-4AE5E6B09997}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A7F6AACF-BE66-48E1-A845-4AE5E6B09997}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A7F6AACF-BE66-48E1-A845-4AE5E6B09997}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {20D608A3-5434-4CC1-8B7D-3DE2B4976B16}
+	EndGlobalSection
+EndGlobal
