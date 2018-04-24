@@ -30,7 +30,7 @@ namespace P2P.Enroll
             };
 
             var baseService = new EnrollRegisterHashService(message);
-            var pool = new Miner[4];
+            var pool = new Miner[7];
 
             ulong maxValue = 10_000_000;
             var step = maxValue / (ulong)pool.Length;
@@ -64,6 +64,18 @@ namespace P2P.Enroll
             watch.Stop();
             var mhs = maxValue / (double)watch.ElapsedMilliseconds / 1000;
             Console.WriteLine($"mining through {maxValue} nonces took {watch.ElapsedMilliseconds}ms, that's {mhs:0.00} MH/s");
+
+            var result = pool.Where(x => x.Result.HasValue)
+                             .FirstOrDefault();
+
+            if (result != null)
+            {
+                Console.WriteLine($"nonce = {result.Result.Value}");
+            }
+            else
+            {
+                Console.WriteLine("no nonce found");
+            }
         }
 
         static void TestConnection(string[] args)
