@@ -24,12 +24,6 @@ namespace P2P.Enroll
             private set;
         }
 
-        public int MaxCountOfZeroes
-        {
-            get;
-            private set;
-        }
-
         public Miner(EnrollRegisterHashService service, ulong start, ulong end, int minZeroes = 32)
         {
             this.service = service;
@@ -52,8 +46,6 @@ namespace P2P.Enroll
                 service.UpdateNonce(i);
 
                 var zeroes = service.GetCurrentCountOfZeroes();
-
-                MaxCountOfZeroes = Math.Max(zeroes, MaxCountOfZeroes);
 
                 if (zeroes >= minZeroes)
                 {

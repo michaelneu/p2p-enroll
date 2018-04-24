@@ -64,13 +64,6 @@ namespace P2P.Enroll
             watch.Stop();
             var mhs = maxValue / (double)watch.ElapsedMilliseconds / 1000;
             Console.WriteLine($"mining through {maxValue} nonces took {watch.ElapsedMilliseconds}ms, that's {mhs:0.00} MH/s");
-
-            var max = pool.Max(x => x.MaxCountOfZeroes);
-            var result = pool.Where(x => x.Result.HasValue)
-                             .FirstOrDefault();
-
-            Console.WriteLine($"maximum zero count = {max}");
-            Console.WriteLine(result);
         }
 
         static void TestConnection(string[] args)
