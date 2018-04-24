@@ -53,29 +53,12 @@ namespace P2P.Enroll
 
         public int GetCurrentCountOfZeroes()
         {
-            var hash = ComputeSha256();
-            var count = 0;
-
-            for (var i = 0; i < hash.Length; i++)
+            if (bytes[0] == 0 && bytes[1] == 0 && bytes[2] == 0 && bytes[3] == 0)
             {
-                var currentByte = hash[i];
-
-                for (int k = 0; k < 8; k++)
-                {
-                    bool byteIsZero = ((currentByte >> k) & 1) == 1;
-
-                    if (byteIsZero)
-                    {
-                        count++;
-                    }
-                    else
-                    {
-                        return count;
-                    }
-                }
+                return 32;
             }
 
-            return count;
+            return 0;
         }
     }
 }
