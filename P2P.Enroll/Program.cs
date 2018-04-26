@@ -11,6 +11,13 @@ namespace P2P.Enroll
 {
     class Program
     {
+        private static int attempt = 1;
+
+        private static void Log(string message)
+        {
+            Console.WriteLine($"{attempt,5} -> {message}");
+        }
+
         static void Main(string[] args)
         {
             var pool = new Miner[4];
@@ -29,7 +36,7 @@ namespace P2P.Enroll
                     var init = new EnrollInitMessage();
                     init.Deserialize(reader);
 
-                    Console.WriteLine($"-> received challenge {init.Challenge}");
+                    Log($"received challenge {init.Challenge}");
 
                     var register = new EnrollRegisterMessage
                     {
@@ -66,13 +73,13 @@ namespace P2P.Enroll
 
                     if (nonce == null)
                     {
-                        Console.WriteLine($"-> no luck");
+                        Log($"no luck");
                         nonce = 0;
                         didOverrideNonce = true;
                     }
                     else
                     {
-                        Console.WriteLine($"-> found nonce {nonce}");
+                        Log($"found nonce {nonce}");
                     }
 
                     register.Nonce = nonce.Value;
@@ -85,23 +92,49 @@ namespace P2P.Enroll
 
                     if (resultMessage.WasSuccessful)
                     {
-                        Console.WriteLine(resultMessage.TeamNumber);
+                        Log($"received team number {resultMessage.TeamNumber}");
 
                         File.WriteAllText("result.txt", resultMessage.TeamNumber + "");
                         Environment.Exit(0);
                     }
                     else
                     {
-                        Console.WriteLine($"-> error #{resultMessage.ErrorNumber}: {resultMessage.ErrorMessage}");
+                        Log($"error #{resultMessage.ErrorNumber}: {resultMessage.ErrorMessage}");
 
                         if (nonce.HasValue && !didOverrideNonce)
                         {
-                            Console.WriteLine("should've matched, nonce was found!");
+                            Log("should've matched, nonce was found!");
                             Environment.Exit(1);
                         }
                     }
                 }
+
+                attempt++;
+                Console.WriteLine();
             }
+        }
+
+        static void CheckNonce(string[] args)
+        {
+            long challenge = 0;
+            long nonce = 0;
+
+            var message = new EnrollRegisterMessage
+            {
+                Challenge = challenge,
+                Nonce = nonce,
+                TeamNumber = 0,
+                Project = ProjectChoice.DHT,
+                Email = "",
+                Firstname = "",
+                Lastname = "",
+            };
+
+            var service = new EnrollRegisterHashService(message);
+            var hash = service.ComputeSha256();
+            var bytes = string.Join(" ", hash.Select(x => Convert.ToString(x, 2)));
+
+            Console.WriteLine(bytes);
         }
     }
 }

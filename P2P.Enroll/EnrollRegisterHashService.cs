@@ -3,6 +3,7 @@ using P2P.Enroll.Messages;
 using System;
 using System.Collections;
 using System.IO;
+using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
 
@@ -47,7 +48,7 @@ namespace P2P.Enroll
             }
         }
 
-        private byte[] ComputeSha256()
+        internal byte[] ComputeSha256()
         {
             return sha.ComputeHash(bytes);
         }
