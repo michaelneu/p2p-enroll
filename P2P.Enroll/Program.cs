@@ -17,6 +17,7 @@ namespace P2P.Enroll
             var joinTimeout = new TimeSpan(0, 0, 0, 29);
             var mineStep = long.MaxValue / pool.Length;
             var difficulty = 32;
+            var didOverrideNonce = false;
 
             while (true)
             {
@@ -67,6 +68,7 @@ namespace P2P.Enroll
                     {
                         Console.WriteLine($"-> no luck");
                         nonce = 0;
+                        didOverrideNonce = true;
                     }
                     else
                     {
@@ -91,6 +93,12 @@ namespace P2P.Enroll
                     else
                     {
                         Console.WriteLine($"-> error #{resultMessage.ErrorNumber}: {resultMessage.ErrorMessage}");
+
+                        if (nonce.HasValue && !didOverrideNonce)
+                        {
+                            Console.WriteLine("should've matched, nonce was found!");
+                            Environment.Exit(1);
+                        }
                     }
                 }
             }
