@@ -23,7 +23,6 @@ namespace P2P.Enroll
             var pool = new Miner[4];
             var joinTimeout = new TimeSpan(0, 0, 0, 29);
             var mineStep = long.MaxValue / pool.Length;
-            var difficulty = 32;
             var didOverrideNonce = false;
 
             while (true)
@@ -55,7 +54,7 @@ namespace P2P.Enroll
                         var service = new EnrollRegisterHashService(baseService);
                         var start = (long)i * mineStep;
                         var end = start + mineStep;
-                        var miner = new Miner(service, start, end, difficulty);
+                        var miner = new Miner(service, start, end);
 
                         miner.Start();
                         pool[i] = miner;

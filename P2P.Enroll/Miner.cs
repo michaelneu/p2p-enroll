@@ -7,7 +7,6 @@ namespace P2P.Enroll
     {
         private readonly Thread thread;
         private readonly EnrollRegisterHashService service;
-        private readonly int minZeroes;
         private readonly long start, end;
 
         public bool IsBusy
@@ -24,12 +23,11 @@ namespace P2P.Enroll
             private set;
         }
 
-        public Miner(EnrollRegisterHashService service, long start, long end, int minZeroes = 32)
+        public Miner(EnrollRegisterHashService service, long start, long end)
         {
             this.service = service;
             this.start = start;
             this.end = end;
-            this.minZeroes = minZeroes;
             
             thread = new Thread(Mine);
         }
@@ -50,9 +48,9 @@ namespace P2P.Enroll
             {
                 service.UpdateNonce(i);
 
-                var zeroes = service.GetCurrentCountOfZeroes();
+                var hash = service.ComputeSha256();
 
-                if (zeroes >= minZeroes)
+                if (hash[0] == 0 && hash[1] == 0 && hash[2] == 0 && hash[3] == 0)
                 {
                     Result = i;
                     break;

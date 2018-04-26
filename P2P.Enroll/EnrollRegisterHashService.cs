@@ -42,27 +42,12 @@ namespace P2P.Enroll
         {
             var nonceBytes = BitConverter.GetBytes(nonce);
 
-            for (int i = 0; i < nonceBytes.Length; i++)
-            {
-                bytes[i + 16] = nonceBytes[i];
-            }
+            Array.Copy(nonceBytes, 0, bytes, 16, nonceBytes.Length);
         }
 
-        internal byte[] ComputeSha256()
+        public byte[] ComputeSha256()
         {
             return sha.ComputeHash(bytes);
-        }
-
-        public int GetCurrentCountOfZeroes()
-        {
-            var hash = ComputeSha256();
-
-            if (hash[0] == 0 && hash[1] == 0 && hash[2] == 0 && hash[3] == 0)
-            {
-                return 32;
-            }
-
-            return 0;
         }
     }
 }
