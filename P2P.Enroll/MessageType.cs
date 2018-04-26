@@ -2,7 +2,7 @@
 
 namespace P2P.Enroll
 {
-    enum MessageType : ushort
+    enum MessageType : short
     {
         EnrollInit = 680,
         EnrollRegister = 681,

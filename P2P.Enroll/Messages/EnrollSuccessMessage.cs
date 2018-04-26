@@ -4,7 +4,7 @@ namespace P2P.Enroll.Messages
 {
     class EnrollSuccessMessage : Message
     {
-        public ushort TeamNumber
+        public short TeamNumber
         {
             get;
             private set;
@@ -14,9 +14,9 @@ namespace P2P.Enroll.Messages
         {
             base.Deserialize(reader);
 
-            var reservedField = reader.ReadUInt16();
+            var reservedField = reader.ReadInt16();
 
-            TeamNumber = reader.ReadUInt16();
+            TeamNumber = reader.ReadInt16();
         }
     }
 }

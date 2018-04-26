@@ -8,7 +8,7 @@ namespace P2P.Enroll
         private readonly Thread thread;
         private readonly EnrollRegisterHashService service;
         private readonly int minZeroes;
-        private readonly ulong start, end;
+        private readonly long start, end;
 
         public bool IsBusy
         {
@@ -18,13 +18,13 @@ namespace P2P.Enroll
             }
         }
 
-        public ulong? Result
+        public long? Result
         {
             get;
             private set;
         }
 
-        public Miner(EnrollRegisterHashService service, ulong start, ulong end, int minZeroes = 32)
+        public Miner(EnrollRegisterHashService service, long start, long end, int minZeroes = 32)
         {
             this.service = service;
             this.start = start;
@@ -41,7 +41,7 @@ namespace P2P.Enroll
 
         private void Mine()
         {
-            for (ulong i = start; i < end; i++)
+            for (long i = start; i < end; i++)
             {
                 service.UpdateNonce(i);
 

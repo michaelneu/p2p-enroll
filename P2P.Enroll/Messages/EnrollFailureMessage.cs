@@ -1,10 +1,11 @@
 ﻿using System.IO;
+using System.Text;
 
 namespace P2P.Enroll.Messages
 {
     class EnrollFailureMessage : Message
     {
-        public ushort ErrorNumber
+        public short ErrorNumber
         {
             get;
             private set;
@@ -20,10 +21,12 @@ namespace P2P.Enroll.Messages
         {
             base.Deserialize(reader);
 
-            var reservedField = reader.ReadUInt16();
+            var reservedField = reader.ReadInt16();
 
-            ErrorNumber = reader.ReadUInt16();
-            ErrorMessage = reader.ReadString();
+            ErrorNumber = reader.ReadInt16();
+
+            var messageBytes = reader.ReadBytes(Size - 4);
+            ErrorMessage = Encoding.UTF8.GetString(messageBytes);
         }
     }
 }

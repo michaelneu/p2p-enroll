@@ -5,15 +5,15 @@ namespace P2P.Enroll.Messages
 {
     class EnrollRegisterMessage : Message
     {
-        public override ushort Size => base.Size;
+        public override short Size => (short)(base.Size + 8 + 2 + 2 + 8 + Body.Length);
 
-        public ulong Challenge
+        public long Challenge
         {
             get;
             set;
         }
 
-        public ushort TeamNumber
+        public short TeamNumber
         {
             get;
             set;
@@ -25,7 +25,7 @@ namespace P2P.Enroll.Messages
             set;
         }
 
-        public ulong Nonce
+        public long Nonce
         {
             get;
             set;
@@ -49,6 +49,8 @@ namespace P2P.Enroll.Messages
             set;
         }
 
+        private string Body => $"{Email}\r\n{Firstname}\r\n{Lastname}";
+
         public EnrollRegisterMessage()
         {
             Type = MessageType.EnrollRegister;
@@ -60,11 +62,9 @@ namespace P2P.Enroll.Messages
 
             writer.Write(Challenge);
             writer.Write(TeamNumber);
-            writer.Write((ushort)Project);
+            writer.Write((short)Project);
             writer.Write(Nonce);
-            writer.Write(Encoding.UTF8.GetBytes(Email));
-            writer.Write(Encoding.UTF8.GetBytes(Firstname));
-            writer.Write(Encoding.UTF8.GetBytes(Lastname));
+            writer.Write(Encoding.UTF8.GetBytes(Body));
         }
     }
 }
