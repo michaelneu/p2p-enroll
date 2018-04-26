@@ -60,6 +60,11 @@ namespace P2P.Enroll.Messages
         {
             base.Serialize(writer);
 
+            SerializeForHash(writer);
+        }
+
+        public void SerializeForHash(BinaryWriter writer)
+        {
             writer.Write(Challenge);
             writer.Write(TeamNumber);
             writer.Write((short)Project);

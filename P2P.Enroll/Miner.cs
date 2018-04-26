@@ -39,6 +39,11 @@ namespace P2P.Enroll
             thread.Start();
         }
 
+        public void Join(TimeSpan timeout)
+        {
+            thread.Join(timeout);
+        }
+
         private void Mine()
         {
             for (long i = start; i < end; i++)

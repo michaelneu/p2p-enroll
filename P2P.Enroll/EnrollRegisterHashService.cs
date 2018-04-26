@@ -1,4 +1,5 @@
-﻿using P2P.Enroll.Messages;
+﻿using Be.IO;
+using P2P.Enroll.Messages;
 using System;
 using System.Collections;
 using System.IO;
@@ -18,9 +19,9 @@ namespace P2P.Enroll
 
             using (var stream = new MemoryStream())
             {
-                using (var writer = new BinaryWriter(stream))
+                using (var writer = new BeBinaryWriter(stream))
                 {
-                    message.Serialize(writer);
+                    message.SerializeForHash(writer);
 
                     stream.Flush();
                     bytes = stream.GetBuffer();
