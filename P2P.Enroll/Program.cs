@@ -21,8 +21,8 @@ namespace P2P.Enroll
         static void Main(string[] args)
         {
             var pool = new Miner[4];
-            var joinTimeout = new TimeSpan(0, 0, 0, 29);
-            var mineStep = long.MaxValue / pool.Length;
+            var joinTimeout = new TimeSpan(0, 0, 10, 0);
+            var mineStep = (long)(ulong.MaxValue / (ulong)pool.Length);
             var didOverrideNonce = false;
 
             while (true)
@@ -52,7 +52,7 @@ namespace P2P.Enroll
                     for (int i = 0; i < pool.Length; i++)
                     {
                         var service = new EnrollRegisterHashService(baseService);
-                        var start = (long)i * mineStep;
+                        var start = long.MinValue + (long)i * mineStep;
                         var end = start + mineStep;
                         var miner = new Miner(service, start, end);
 
@@ -63,7 +63,7 @@ namespace P2P.Enroll
                     pool[0].Join(joinTimeout);
                     foreach (var item in pool.Skip(1))
                     {
-                        item.Join(new TimeSpan());
+                        item.Stop();
                     }
 
                     var nonce = pool.Select(x => x.Result)
