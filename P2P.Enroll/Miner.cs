@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Text;
 using System.Threading;
 
 namespace P2P.Enroll
@@ -17,7 +18,13 @@ namespace P2P.Enroll
             }
         }
 
-        public long? Result
+        public long? Nonce
+        {
+            get;
+            private set;
+        }
+
+        public string Hex
         {
             get;
             private set;
@@ -60,9 +67,17 @@ namespace P2P.Enroll
 
                 var hash = service.ComputeSha256();
 
-                if (hash[0] == 0 && hash[1] == 0 && hash[2] == 0 && hash[3] == 0)
+                if (hash[28] == 0 && hash[29] == 0 && hash[30] == 0 && hash[31] == 0)
                 {
-                    Result = i;
+                    var hex = new StringBuilder(hash.Length * 3);
+
+                    foreach (var item in hash)
+                    {
+                        hex.AppendFormat("{0:x2}", item);
+                    }
+
+                    Hex = hex.ToString();
+                    Nonce = i;
                     break;
                 }
             }

@@ -66,7 +66,7 @@ namespace P2P.Enroll
                         item.Stop();
                     }
 
-                    var nonce = pool.Select(x => x.Result)
+                    var nonce = pool.Select(x => x.Nonce)
                                     .Where(x => x.HasValue)
                                     .FirstOrDefault();
 
@@ -78,7 +78,11 @@ namespace P2P.Enroll
                     }
                     else
                     {
-                        Log($"found nonce {nonce}");
+                        var hex = pool.Where(x => x.Nonce == nonce)
+                                      .Select(x => x.Hex)
+                                      .FirstOrDefault();
+
+                        Log($"found nonce {nonce} (hex: {hex})");
                     }
 
                     register.Nonce = nonce.Value;
