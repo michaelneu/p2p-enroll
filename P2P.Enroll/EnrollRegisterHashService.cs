@@ -38,7 +38,7 @@ namespace P2P.Enroll
             Array.Copy(otherService.bytes, bytes, bytes.Length);
         }
 
-        public void UpdateNonce(long nonce)
+        public void UpdateNonce(ulong nonce)
         {
             var nonceBytes = BitConverter.GetBytes(nonce);
 

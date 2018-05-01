@@ -22,7 +22,7 @@ namespace P2P.Enroll
         {
             var pool = new Miner[4];
             var joinTimeout = new TimeSpan(0, 0, 10, 0);
-            var mineStep = (long)(ulong.MaxValue / (ulong)pool.Length);
+            var mineStep = ulong.MaxValue / (ulong)pool.Length;
             var didOverrideNonce = false;
 
             while (true)
@@ -52,7 +52,7 @@ namespace P2P.Enroll
                     for (int i = 0; i < pool.Length; i++)
                     {
                         var service = new EnrollRegisterHashService(baseService);
-                        var start = long.MinValue + (long)i * mineStep;
+                        var start = (ulong)i * mineStep;
                         var end = start + mineStep;
                         var miner = new Miner(service, start, end);
 
@@ -119,8 +119,8 @@ namespace P2P.Enroll
 
         static void CheckNonce(string[] args)
         {
-            long challenge = 0;
-            long nonce = 0;
+            ulong challenge = 0;
+            ulong nonce = 0;
 
             var message = new EnrollRegisterMessage
             {
@@ -135,7 +135,7 @@ namespace P2P.Enroll
 
             var service = new EnrollRegisterHashService(message);
             var hash = service.ComputeSha256();
-            var bytes = string.Join(" ", hash.Select(x => Convert.ToString(x, 2)));
+            var bytes = BitConverter.ToString(hash).Replace("-", "").ToLower();
 
             Console.WriteLine(bytes);
         }

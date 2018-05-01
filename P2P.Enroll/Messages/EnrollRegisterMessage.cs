@@ -7,7 +7,7 @@ namespace P2P.Enroll.Messages
     {
         public override short Size => (short)(base.Size + 8 + 2 + 2 + 8 + Body.Length);
 
-        public long Challenge
+        public ulong Challenge
         {
             get;
             set;
@@ -25,7 +25,7 @@ namespace P2P.Enroll.Messages
             set;
         }
 
-        public long Nonce
+        public ulong Nonce
         {
             get;
             set;

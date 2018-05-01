@@ -6,7 +6,7 @@ namespace P2P.Enroll.Messages
     {
         public override short Size => (short)(base.Size + 8);
 
-        public long Challenge
+        public ulong Challenge
         {
             get;
             private set;
@@ -16,7 +16,7 @@ namespace P2P.Enroll.Messages
         {
             base.Deserialize(reader);
 
-            Challenge = reader.ReadInt64();
+            Challenge = reader.ReadUInt64();
         }
     }
 }
