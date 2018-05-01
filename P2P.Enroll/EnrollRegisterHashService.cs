@@ -42,7 +42,14 @@ namespace P2P.Enroll
         {
             var nonceBytes = BitConverter.GetBytes(nonce);
 
-            Array.Copy(nonceBytes, 0, bytes, 16, nonceBytes.Length);
+            bytes[12] = nonceBytes[7];
+            bytes[13] = nonceBytes[6];
+            bytes[14] = nonceBytes[5];
+            bytes[15] = nonceBytes[4];
+            bytes[16] = nonceBytes[3];
+            bytes[17] = nonceBytes[2];
+            bytes[18] = nonceBytes[1];
+            bytes[19] = nonceBytes[0];
         }
 
         public byte[] ComputeSha256()
