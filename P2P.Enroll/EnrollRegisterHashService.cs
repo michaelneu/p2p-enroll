@@ -25,7 +25,7 @@ namespace P2P.Enroll
                     message.SerializeForHash(writer);
 
                     stream.Flush();
-                    bytes = stream.GetBuffer();
+                    bytes = stream.ToArray();
                 }
             }
         }
