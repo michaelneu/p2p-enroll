@@ -67,7 +67,7 @@ namespace P2P.Enroll
 
                 var hash = service.ComputeSha256();
 
-                if (hash[28] == 0 && hash[29] == 0 && hash[30] == 0 && hash[31] == 0)
+                if (hash[0] == 0 && hash[1] == 0 && hash[2] == 0 && hash[3] == 0)
                 {
                     var hex = new StringBuilder(hash.Length * 3);
 
