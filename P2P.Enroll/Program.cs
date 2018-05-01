@@ -15,7 +15,7 @@ namespace P2P.Enroll
 
         private static void Log(string message)
         {
-            Console.WriteLine($"{attempt,5} -> {message}");
+            Console.WriteLine($"[{attempt,5}] [{DateTime.Now}] -> {message}");
         }
 
         static void Main(string[] args)
