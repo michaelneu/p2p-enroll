@@ -20,7 +20,7 @@ namespace P2P.Enroll
 
         static void Main(string[] args)
         {
-            var pool = new Miner[4];
+            var pool = new Miner[8];
             var joinTimeout = new TimeSpan(0, 0, 10, 0);
             var mineStep = ulong.MaxValue / (ulong)pool.Length;
             var didOverrideNonce = false;
@@ -60,10 +60,18 @@ namespace P2P.Enroll
                         pool[i] = miner;
                     }
 
-                    pool[0].Join(joinTimeout);
-                    foreach (var item in pool.Skip(1))
+                    var targetTime = DateTime.Now.Add(joinTimeout);
+                    var isBusy = true;
+
+                    while (isBusy && targetTime > DateTime.Now)
                     {
-                        item.Stop();
+                        isBusy = pool.Any(x => x.IsBusy);
+                        Thread.Sleep(1000);
+                    }
+
+                    foreach (var miner in pool)
+                    {
+                        miner.Stop();
                     }
 
                     var nonce = pool.Select(x => x.Nonce)
