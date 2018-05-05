@@ -150,5 +150,55 @@ namespace P2P.Enroll
 
             Console.WriteLine(bytes);
         }
+
+        static void Benchmark(string[] args)
+        {
+            var message = new EnrollRegisterMessage
+            {
+                Challenge = 0,
+                TeamNumber = 0,
+                Project = ProjectChoice.DHT,
+                Email = "",
+                Firstname = "",
+                Lastname = "",
+            };
+
+            var pool = new Miner[8];
+            var baseService = new EnrollRegisterHashService(message);
+
+            ulong upperBound = 100_000_000;
+            var step = upperBound / (ulong)pool.Length;
+
+            var watch = new Stopwatch();
+
+            for (int i = 0; i < pool.Length; i++)
+            {
+                var start = (ulong)i * step;
+                var end = start + step;
+                var service = new EnrollRegisterHashService(baseService);
+
+                pool[i] = new Miner(service, start, end);
+            }
+
+            watch.Start();
+            foreach (var miner in pool)
+            {
+                miner.Start();
+            }
+
+            var isBusy = pool.Any(x => x.IsBusy);
+
+            while (isBusy)
+            {
+                Thread.Sleep(10);
+                isBusy = pool.Any(x => x.IsBusy);
+            }
+
+            watch.Stop();
+
+            var mhs = upperBound / (double)(watch.ElapsedMilliseconds * 1000);
+            Console.WriteLine($"took {watch.ElapsedMilliseconds}ms to mine {upperBound} nonces on {pool.Length} threads");
+            Console.WriteLine($"that's a total of {mhs:#.##} MH/s");
+        }
     }
 }
