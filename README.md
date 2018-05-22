@@ -1,6 +1,7 @@
 # P2P.Enroll
 
 [![Build Status](https://travis-ci.org/michaelneu/p2p-enroll.svg?branch=master)](https://travis-ci.org/michaelneu/p2p-enroll)
+[![license](https://img.shields.io/github/license/michaelneu/p2p-enroll.svg)](https://github.com/michaelneu/p2p-enroll)
 
 This repo contains a sample implementation for the project enrollment of TUM's P2P systems and security course.
 
