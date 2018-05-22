@@ -5,7 +5,7 @@
 
 This repo contains a sample implementation for the project enrollment of TUM's P2P systems and security course.
 
-In order to register for the final project, a TCP connection had to be established. After reading a challenge, a nonce had to be found, so that the SHA256 hash of the message containing the challenge and the nonce matched a certain difficulty.
+In order to register for the final project, a TCP connection had to be established. After reading a challenge from said connection, a nonce had to be found, so that the SHA256 hash of the enrollment message containing the challenge, the nonce and the student's personal info matched a certain difficulty.
 
 
 ## Benchmark
