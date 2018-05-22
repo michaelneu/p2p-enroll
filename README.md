@@ -9,7 +9,7 @@ In order to register for the final project, a TCP connection had to be establish
 
 ## Benchmark
 
-When building this project in Release mode and running it from the command line, it can mine nonces with ~6.4 MH/s.
+When building this project in Release mode and running it from the command line, it can mine nonces with ~6.4 MH/s on an idle Intel Xeon Prozessor E3-1231 v3 at 3.4 GHz with one thread per logical core under Windows 10.
 
 
 ## License
