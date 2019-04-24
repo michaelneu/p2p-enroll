@@ -139,6 +139,7 @@ namespace P2P.Enroll
 
                 attempt++;
                 Console.WriteLine();
+                GC.Collect();
             }
         }
 
