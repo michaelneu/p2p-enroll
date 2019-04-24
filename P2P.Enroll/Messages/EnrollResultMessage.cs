@@ -12,7 +12,7 @@ namespace P2P.Enroll.Messages
             private set;
         }
 
-        public short ErrorNumber
+        public ushort ErrorNumber
         {
             get;
             private set;
@@ -24,7 +24,7 @@ namespace P2P.Enroll.Messages
             set;
         }
 
-        public short TeamNumber
+        public ushort TeamNumber
         {
             get;
             private set;
@@ -38,12 +38,12 @@ namespace P2P.Enroll.Messages
             if (Type == MessageType.EnrollSuccess)
             {
                 WasSuccessful = true;
-                TeamNumber = reader.ReadInt16();
+                TeamNumber = reader.ReadUInt16();
             }
             else
             {
                 WasSuccessful = false;
-                ErrorNumber = reader.ReadInt16();
+                ErrorNumber = reader.ReadUInt16();
 
                 var messageBytes = reader.ReadBytes(Size - 4);
                 ErrorMessage = Encoding.UTF8.GetString(messageBytes);

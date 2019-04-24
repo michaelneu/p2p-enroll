@@ -13,7 +13,7 @@ namespace P2P.Enroll.Messages
             set;
         }
 
-        public short TeamNumber
+        public ushort TeamNumber
         {
             get;
             set;
@@ -67,7 +67,7 @@ namespace P2P.Enroll.Messages
         {
             writer.Write(Challenge);
             writer.Write(TeamNumber);
-            writer.Write((short)Project);
+            writer.Write((ushort)Project);
             writer.Write(Nonce);
             writer.Write(Encoding.UTF8.GetBytes(Body));
         }
