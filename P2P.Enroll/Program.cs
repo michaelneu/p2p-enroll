@@ -97,12 +97,26 @@ namespace P2P.Enroll
                     }
 
                     register.Nonce = nonce.Value;
-                    register.Serialize(writer);
-                    writer.Flush();
+                    try
+                    {
+                        register.Serialize(writer);
+                        writer.Flush();
+                    }
+                    catch (System.IO.IOException ex)
+                    {
+                        Log($"error: {ex.Message}");
+                    }
 
                     var resultMessage = new EnrollResultMessage();
 
-                    resultMessage.Deserialize(reader);
+                    try
+                    {
+                        resultMessage.Deserialize(reader);
+                    }
+                    catch (System.IO.EndOfStreamException ex)
+                    {
+                        Log($"error: {ex.Message}");
+                    }
 
                     if (resultMessage.WasSuccessful)
                     {
